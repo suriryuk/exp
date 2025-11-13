@@ -15,146 +15,47 @@
   const delays = [4000, 4200, 4400];
 </script>
 
-<section class="contact">
-  <h2 in:fly={{ y: 30, duration: 800, delay: 3800, easing: elasticOut }}>
+<section class="mt-16 relative z-10">
+  <h2
+    class="text-3xl md:text-4xl mb-8 font-normal text-white drop-shadow-lg"
+    in:fly={{ y: 30, duration: 800, delay: 3800, easing: elasticOut }}
+  >
     {translations.contact || 'Contact'}
   </h2>
-  <div class="social-links">
+  <div class="flex justify-center gap-8 flex-wrap">
     <a
       href={social.discord}
       target="_blank"
       rel="noopener noreferrer"
-      class="social-icon discord"
+      class="w-[70px] h-[70px] md:w-20 md:h-20 flex items-center justify-center bg-white/15 backdrop-blur-md rounded-full text-white border-2 border-white/30 shadow-lg transition-all duration-300 ease-in-out relative overflow-hidden hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:bg-[#5865F2] hover:border-[#5865F2] group"
       in:scale={{ duration: 600, delay: delays[0], easing: elasticOut }}
       aria-label="Discord"
     >
-      {@html icons.discord}
+      <div class="relative z-[2] w-8 h-8 md:w-9 md:h-9 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+        {@html icons.discord}
+      </div>
     </a>
     <a
       href={social.twitter}
       target="_blank"
       rel="noopener noreferrer"
-      class="social-icon twitter"
+      class="w-[70px] h-[70px] md:w-20 md:h-20 flex items-center justify-center bg-white/15 backdrop-blur-md rounded-full text-white border-2 border-white/30 shadow-lg transition-all duration-300 ease-in-out relative overflow-hidden hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:bg-[#1DA1F2] hover:border-[#1DA1F2] group"
       in:scale={{ duration: 600, delay: delays[1], easing: elasticOut }}
       aria-label="Twitter"
     >
-      {@html icons.twitter}
+      <div class="relative z-[2] w-8 h-8 md:w-9 md:h-9 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+        {@html icons.twitter}
+      </div>
     </a>
     <a
       href={`mailto:${social.email}`}
-      class="social-icon email"
+      class="w-[70px] h-[70px] md:w-20 md:h-20 flex items-center justify-center bg-white/15 backdrop-blur-md rounded-full text-white border-2 border-white/30 shadow-lg transition-all duration-300 ease-in-out relative overflow-hidden hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:bg-[#EA4335] hover:border-[#EA4335] group"
       in:scale={{ duration: 600, delay: delays[2], easing: elasticOut }}
       aria-label="Email"
     >
-      {@html icons.email}
+      <div class="relative z-[2] w-8 h-8 md:w-9 md:h-9 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+        {@html icons.email}
+      </div>
     </a>
   </div>
 </section>
-
-<style>
-  .contact {
-    margin-top: 60px;
-    position: relative;
-    z-index: 10;
-  }
-
-  h2 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    margin-bottom: 30px;
-    font-weight: 400;
-    color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-
-  .social-icon {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .social-icon :global(svg) {
-    width: 32px;
-    height: 32px;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease;
-  }
-
-  .social-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease;
-    z-index: 1;
-  }
-
-  .social-icon:hover {
-    transform: translateY(-8px) scale(1.1);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  }
-
-  .social-icon:hover::before {
-    width: 100%;
-    height: 100%;
-  }
-
-  .social-icon:hover :global(svg) {
-    transform: scale(1.1) rotate(5deg);
-  }
-
-  .social-icon.discord:hover {
-    background: #5865F2;
-    border-color: #5865F2;
-  }
-
-  .social-icon.twitter:hover {
-    background: #1DA1F2;
-    border-color: #1DA1F2;
-  }
-
-  .social-icon.email:hover {
-    background: #EA4335;
-    border-color: #EA4335;
-  }
-
-  @media (max-width: 768px) {
-    .social-icon {
-      width: 60px;
-      height: 60px;
-    }
-
-    .social-icon :global(svg) {
-      width: 28px;
-      height: 28px;
-    }
-
-    .social-links {
-      gap: 20px;
-    }
-  }
-</style>

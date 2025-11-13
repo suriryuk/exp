@@ -18,20 +18,41 @@
   $: translations = $config?.translations?.[$currentLang] || {};
 </script>
 
+<svelte:head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  </style>
+</svelte:head>
+
 {#if ready}
-  <div class="app" in:fade={{ duration: 500, easing: quintOut }}>
+  <div
+    class="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-purple-800 flex items-center justify-center relative overflow-hidden"
+    in:fade={{ duration: 500, easing: quintOut }}
+  >
+    <!-- Animated background overlay -->
+    <div class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none animate-spin-slow">
+      <div
+        class="w-full h-full"
+        style="background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);"
+      ></div>
+    </div>
+
     <ParticleBackground />
     <LanguageToggle />
 
-    <main class="container">
-      <section class="hero">
+    <main class="max-w-6xl w-[90%] mx-auto text-center py-16 md:py-24 relative z-10">
+      <section class="mb-20 md:mb-32">
         <WordAnimation />
 
-        <h1 class="slogan">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl mt-10 mb-5 font-light tracking-[0.15em] text-white drop-shadow-lg animate-fade-in-up">
           {translations.slogan || 'develop. derive. delight.'}
         </h1>
 
-        <p class="description">
+        <p class="text-lg md:text-xl lg:text-2xl mb-10 text-white/95 drop-shadow-md leading-relaxed animate-fade-in-up-delayed">
           {translations.description || 'We develop innovative solutions'}
         </p>
       </section>
@@ -42,39 +63,7 @@
 {/if}
 
 <style>
-  :global(body) {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  .app {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .app::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-      circle at 30% 50%,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 50%
-    );
-    animation: rotate 20s linear infinite;
-    pointer-events: none;
-  }
-
-  @keyframes rotate {
+  @keyframes spin-slow {
     from {
       transform: rotate(0deg);
     }
@@ -83,40 +72,11 @@
     }
   }
 
-  .container {
-    max-width: 1200px;
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 60px 20px;
-    position: relative;
-    z-index: 10;
+  :global(.animate-spin-slow) {
+    animation: spin-slow 20s linear infinite;
   }
 
-  .hero {
-    margin-bottom: 80px;
-  }
-
-  .slogan {
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    margin: 40px 0 20px;
-    font-weight: 300;
-    letter-spacing: 3px;
-    color: white;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    animation: fadeInUp 1s ease-out 3s both;
-  }
-
-  .description {
-    font-size: clamp(1rem, 3vw, 1.3rem);
-    margin-bottom: 40px;
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    animation: fadeInUp 1s ease-out 3.5s both;
-    line-height: 1.6;
-  }
-
-  @keyframes fadeInUp {
+  @keyframes fade-in-up {
     from {
       transform: translateY(30px);
       opacity: 0;
@@ -127,13 +87,11 @@
     }
   }
 
-  @media (max-width: 768px) {
-    .container {
-      padding: 40px 20px;
-    }
+  :global(.animate-fade-in-up) {
+    animation: fade-in-up 1s ease-out 3s both;
+  }
 
-    .hero {
-      margin-bottom: 60px;
-    }
+  :global(.animate-fade-in-up-delayed) {
+    animation: fade-in-up 1s ease-out 3.5s both;
   }
 </style>

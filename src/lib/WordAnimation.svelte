@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { scale, fly, fade } from 'svelte/transition';
+  import { scale, fly } from 'svelte/transition';
   import { elasticOut, quintOut } from 'svelte/easing';
 
   let animationState = 'initial'; // initial, showing, merging, merged
@@ -15,7 +15,7 @@
         setTimeout(() => {
           animationState = 'merged';
           clickable = true;
-        }, 1500);
+        }, 1200);
       }, 2500);
     }, 100);
   }
@@ -32,29 +32,22 @@
 </script>
 
 <div
-  class="animation-container"
-  class:clickable
+  class="min-h-[150px] flex items-center justify-center relative my-10 transition-transform duration-300 {clickable ? 'cursor-pointer hover:scale-105' : ''}"
   on:click={restartAnimation}
   on:keypress={restartAnimation}
   role="button"
   tabindex="0"
 >
   {#if animationState === 'showing' || animationState === 'initial'}
-    <div class="word-group">
+    <div class="flex items-center justify-center gap-8 flex-wrap">
       <span
-        class="word develop"
+        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-pulse"
         in:fly={{ x: -200, duration: 800, delay: 0, easing: elasticOut }}
       >
         develop
       </span>
       <span
-        class="operator plus"
-        in:scale={{ duration: 500, delay: 500, easing: quintOut }}
-      >
-        +
-      </span>
-      <span
-        class="word derive"
+        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-pulse"
         in:fly={{ x: 200, duration: 800, delay: 300, easing: elasticOut }}
       >
         derive
@@ -63,39 +56,30 @@
   {/if}
 
   {#if animationState === 'merging'}
-    <div class="word-group merging">
+    <div class="flex items-center justify-center gap-8">
       <span
-        class="word develop"
-        out:scale={{ duration: 800, easing: quintOut }}
+        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent"
+        out:fly={{ x: 100, y: 0, duration: 800, easing: quintOut }}
+        style="animation: mergeToCenter 0.8s ease-in-out forwards;"
       >
         develop
       </span>
       <span
-        class="operator plus"
-        out:fade={{ duration: 500 }}
-      >
-        +
-      </span>
-      <span
-        class="word derive"
-        out:scale={{ duration: 800, easing: quintOut }}
+        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent"
+        out:fly={{ x: -100, y: 0, duration: 800, easing: quintOut }}
+        style="animation: mergeToCenter 0.8s ease-in-out forwards;"
       >
         derive
-      </span>
-      <span
-        class="operator equals"
-        in:scale={{ duration: 500, delay: 200, easing: quintOut }}
-      >
-        =
       </span>
     </div>
   {/if}
 
   {#if animationState === 'merged'}
-    <div class="word-group merged">
+    <div class="flex items-center justify-center">
       <span
-        class="word derives"
+        class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse"
         in:scale={{ duration: 1000, easing: elasticOut }}
+        style="background-size: 200% 200%; animation: shine 3s ease-in-out infinite, pulseGlow 2s ease-in-out infinite;"
       >
         derives
       </span>
@@ -104,77 +88,18 @@
 </div>
 
 <style>
-  .animation-container {
-    min-height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 40px 0;
-    transition: transform 0.3s ease;
-  }
-
-  .animation-container.clickable {
-    cursor: pointer;
-  }
-
-  .animation-container.clickable:hover {
-    transform: scale(1.05);
-  }
-
-  .word-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .word {
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: bold;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
-                 0 0 40px rgba(255, 255, 255, 0.2);
-    display: inline-block;
-    position: relative;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .word.develop,
-  .word.derive {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  .word.derives {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shine 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-  }
-
-  .operator {
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .word-group.merging .word {
-    animation: merge 0.8s ease-in-out forwards;
-  }
-
-  @keyframes glow {
-    from {
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  @keyframes mergeToCenter {
+    0% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
     }
-    to {
-      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+    50% {
+      transform: translateX(0) scale(0.7);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(0) scale(0);
+      opacity: 0;
     }
   }
 
@@ -187,39 +112,14 @@
     }
   }
 
-  @keyframes pulse {
+  @keyframes pulseGlow {
     0%, 100% {
       transform: scale(1);
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
     }
     50% {
       transform: scale(1.05);
-    }
-  }
-
-  @keyframes merge {
-    0% {
-      transform: scale(1) translateX(0);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(0.5) translateX(0);
-      opacity: 0.5;
-    }
-    100% {
-      transform: scale(0) translateX(0);
-      opacity: 0;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .word-group {
-      gap: 15px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .word-group {
-      gap: 10px;
+      filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.9));
     }
   }
 </style>
