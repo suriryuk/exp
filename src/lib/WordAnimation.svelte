@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import { scale, fly } from 'svelte/transition';
-  import { elasticOut, quintOut } from 'svelte/easing';
+  import { elasticOut, backOut } from 'svelte/easing';
+  import Card from '../components/ui/Card.svelte';
 
   let animationState = 'initial'; // initial, showing, merging, merged
   let clickable = false;
@@ -32,94 +33,74 @@
 </script>
 
 <div
-  class="min-h-[150px] flex items-center justify-center relative my-10 transition-transform duration-300 {clickable ? 'cursor-pointer hover:scale-105' : ''}"
+  class="relative"
   on:click={restartAnimation}
   on:keypress={restartAnimation}
   role="button"
   tabindex="0"
 >
-  {#if animationState === 'showing' || animationState === 'initial'}
-    <div class="flex items-center justify-center gap-8 flex-wrap">
-      <span
-        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-pulse"
-        in:fly={{ x: -200, duration: 800, delay: 0, easing: elasticOut }}
-      >
-        develop
-      </span>
-      <span
-        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-pulse"
-        in:fly={{ x: 200, duration: 800, delay: 300, easing: elasticOut }}
-      >
-        derive
-      </span>
-    </div>
-  {/if}
+  <Card className="bg-gradient-to-br from-slate-900/90 via-purple-900/50 to-slate-900/90 backdrop-blur-xl border-purple-500/20 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 p-8 md:p-12 {clickable ? 'cursor-pointer hover:scale-[1.02]' : ''}">
+    <div class="min-h-[200px] md:min-h-[250px] flex items-center justify-center relative">
+      {#if animationState === 'showing' || animationState === 'initial'}
+        <div class="flex items-center justify-center gap-12 md:gap-16 flex-wrap">
+          <div
+            class="relative group"
+            in:fly={{ x: -300, duration: 1000, delay: 0, easing: elasticOut }}
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            <span class="relative text-6xl md:text-8xl font-black bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent drop-shadow-2xl">
+              develop
+            </span>
+          </div>
+          <div
+            class="relative group"
+            in:fly={{ x: 300, duration: 1000, delay: 300, easing: elasticOut }}
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            <span class="relative text-6xl md:text-8xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl">
+              derive
+            </span>
+          </div>
+        </div>
+      {/if}
 
-  {#if animationState === 'merging'}
-    <div class="flex items-center justify-center gap-8">
-      <span
-        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent"
-        out:fly={{ x: 100, y: 0, duration: 800, easing: quintOut }}
-        style="animation: mergeToCenter 0.8s ease-in-out forwards;"
-      >
-        develop
-      </span>
-      <span
-        class="text-5xl md:text-7xl font-bold bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent"
-        out:fly={{ x: -100, y: 0, duration: 800, easing: quintOut }}
-        style="animation: mergeToCenter 0.8s ease-in-out forwards;"
-      >
-        derive
-      </span>
-    </div>
-  {/if}
+      {#if animationState === 'merging'}
+        <div class="flex items-center justify-center gap-12">
+          <span
+            class="text-6xl md:text-8xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
+            out:fly={{ x: 100, y: -50, duration: 800, easing: backOut }}
+          >
+            develop
+          </span>
+          <span
+            class="text-6xl md:text-8xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+            out:fly={{ x: -100, y: -50, duration: 800, easing: backOut }}
+          >
+            derive
+          </span>
+        </div>
+      {/if}
 
-  {#if animationState === 'merged'}
-    <div class="flex items-center justify-center">
-      <span
-        class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse"
-        in:scale={{ duration: 1000, easing: elasticOut }}
-        style="background-size: 200% 200%; animation: shine 3s ease-in-out infinite, pulseGlow 2s ease-in-out infinite;"
-      >
-        derives
-      </span>
+      {#if animationState === 'merged'}
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-gradient-to-r from-yellow-600 via-amber-600 to-yellow-600 rounded-2xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity animate-gradient-x"></div>
+          <div
+            class="relative"
+            in:scale={{ duration: 1200, easing: elasticOut }}
+          >
+            <span class="text-7xl md:text-9xl font-black bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-2xl animate-gradient-x">
+              derives
+            </span>
+            <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+          </div>
+        </div>
+      {/if}
     </div>
-  {/if}
+
+    {#if clickable}
+      <p class="text-center text-sm text-purple-300/60 mt-4 animate-pulse">
+        Click to replay
+      </p>
+    {/if}
+  </Card>
 </div>
-
-<style>
-  @keyframes mergeToCenter {
-    0% {
-      transform: translateX(0) scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: translateX(0) scale(0.7);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateX(0) scale(0);
-      opacity: 0;
-    }
-  }
-
-  @keyframes shine {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% {
-      transform: scale(1);
-      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-    }
-    50% {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.9));
-    }
-  }
-</style>

@@ -3,7 +3,6 @@
   import { fade } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { loadConfig, config, currentLang } from './stores/language';
-  import ParticleBackground from './lib/ParticleBackground.svelte';
   import WordAnimation from './lib/WordAnimation.svelte';
   import LanguageToggle from './lib/LanguageToggle.svelte';
   import SocialLinks from './lib/SocialLinks.svelte';
@@ -30,68 +29,57 @@
 
 {#if ready}
   <div
-    class="min-h-screen bg-gradient-to-br from-purple-500 via-purple-600 to-purple-800 flex items-center justify-center relative overflow-hidden"
+    class="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden"
     in:fade={{ duration: 500, easing: quintOut }}
   >
-    <!-- Animated background overlay -->
-    <div class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none animate-spin-slow">
-      <div
-        class="w-full h-full"
-        style="background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);"
-      ></div>
+    <!-- Animated gradient orbs -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+      <div class="absolute top-0 -right-4 w-96 h-96 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute -bottom-8 left-20 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style="animation-delay: 4s;"></div>
     </div>
 
-    <ParticleBackground />
+    <!-- Grid pattern overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+
     <LanguageToggle />
 
-    <main class="max-w-6xl w-[90%] mx-auto text-center py-16 md:py-24 relative z-10">
-      <section class="mb-20 md:mb-32">
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <!-- Header Section -->
+      <header class="text-center mb-16 md:mb-20">
+        <div class="inline-block mb-6 px-6 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full">
+          <p class="text-sm font-medium text-purple-300">
+            {translations.slogan || 'develop. derive. delight.'}
+          </p>
+        </div>
+      </header>
+
+      <!-- Main Animation Section -->
+      <section class="mb-12 md:mb-16">
         <WordAnimation />
-
-        <h1 class="text-4xl md:text-5xl lg:text-6xl mt-10 mb-5 font-light tracking-[0.15em] text-white drop-shadow-lg animate-fade-in-up">
-          {translations.slogan || 'develop. derive. delight.'}
-        </h1>
-
-        <p class="text-lg md:text-xl lg:text-2xl mb-10 text-white/95 drop-shadow-md leading-relaxed animate-fade-in-up-delayed">
-          {translations.description || 'We develop innovative solutions'}
-        </p>
       </section>
 
-      <SocialLinks />
+      <!-- Description Card -->
+      <section class="mb-12 md:mb-16 max-w-3xl mx-auto">
+        <div class="bg-gradient-to-r from-slate-900/50 via-purple-900/30 to-slate-900/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-8 md:p-10 text-center shadow-2xl">
+          <p class="text-xl md:text-2xl text-purple-100 leading-relaxed">
+            {translations.description || 'We develop innovative solutions'}
+          </p>
+        </div>
+      </section>
+
+      <!-- Social Links Section -->
+      <section class="max-w-4xl mx-auto">
+        <SocialLinks />
+      </section>
+
+      <!-- Footer -->
+      <footer class="mt-20 text-center">
+        <div class="inline-flex items-center gap-2 text-sm text-purple-400/60">
+          <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+          <span>Powered by Svelte & Tailwind CSS</span>
+        </div>
+      </footer>
     </main>
   </div>
 {/if}
-
-<style>
-  @keyframes spin-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  :global(.animate-spin-slow) {
-    animation: spin-slow 20s linear infinite;
-  }
-
-  @keyframes fade-in-up {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  :global(.animate-fade-in-up) {
-    animation: fade-in-up 1s ease-out 3s both;
-  }
-
-  :global(.animate-fade-in-up-delayed) {
-    animation: fade-in-up 1s ease-out 3.5s both;
-  }
-</style>
