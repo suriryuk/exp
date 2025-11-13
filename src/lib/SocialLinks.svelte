@@ -34,7 +34,7 @@
   const delays = [4000, 4150, 4300];
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
   {#each socialLinks as link, i}
     <a
       href={link.key === 'email' ? `mailto:${social.email}` : social[link.key]}
@@ -44,18 +44,18 @@
       in:scale={{ duration: 600, delay: delays[i], easing: elasticOut }}
       aria-label={link.name}
     >
-      <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-        <div class="flex flex-col items-center gap-4 text-center">
-          <div class="w-12 h-12 rounded-full {link.bgColor} flex items-center justify-center {link.color} group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-6 h-6" viewBox="0 0 640 512" fill="currentColor">
+      <Card className="p-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+        <div class="flex flex-col items-center gap-2 text-center">
+          <div class="w-10 h-10 rounded-full {link.bgColor} flex items-center justify-center {link.color} group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-5 h-5" viewBox="0 0 640 512" fill="currentColor">
               <path d={link.icon} />
             </svg>
           </div>
           <div>
-            <h3 class="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
+            <h3 class="font-semibold text-base text-foreground group-hover:text-primary transition-colors">
               {link.name}
             </h3>
-            <p class="text-sm text-muted-foreground mt-1">
+            <p class="text-xs text-muted-foreground mt-0.5">
               {link.key === 'email' ? social.email : 'Connect with us'}
             </p>
           </div>

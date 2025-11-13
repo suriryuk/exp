@@ -33,27 +33,30 @@
     class="min-h-screen bg-background"
     in:fade={{ duration: 500, easing: quintOut }}
   >
-    <!-- Logo -->
-    <div
-      class="fixed top-4 left-4 z-50"
-      in:fade={{ duration: 500, delay: 3500, easing: quintOut }}
-    >
-      <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-background/80 backdrop-blur-sm border shadow-sm">
-        <div class="w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
-          <span class="text-white font-bold text-sm">D</span>
-        </div>
-        <span class="font-bold text-lg">Derives</span>
-      </div>
-    </div>
+    <!-- Fixed Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-sm">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
+              <span class="text-white font-bold text-sm">D</span>
+            </div>
+            <span class="font-bold text-lg">Derives</span>
+          </div>
 
-    <LanguageToggle />
+          <!-- Language Toggle -->
+          <LanguageToggle />
+        </div>
+      </div>
+    </header>
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden border-b bg-background">
+    <section class="relative overflow-hidden border-b bg-background pt-16">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-60"></div>
 
       <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex min-h-[90vh] flex-col items-center justify-center py-20 text-center">
+        <div class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 text-center">
           <!-- Badge -->
           <div class="mb-8 inline-flex items-center rounded-full border bg-background px-4 py-1.5 text-sm font-medium shadow-sm">
             <span class="mr-2">✨</span>
@@ -139,20 +142,18 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="bg-muted/30 py-20">
+    <section class="bg-muted/30 py-16">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-12 text-center">
-          <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+        <div class="mb-10 text-center">
+          <h2 class="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
             {translations.contact || 'Get In Touch'}
           </h2>
-          <p class="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Connect with us through your preferred platform. We're always here to help.
+          <p class="mx-auto max-w-2xl text-base text-muted-foreground">
+            Connect with us through your preferred platform.
           </p>
         </div>
 
-        <div class="mx-auto max-w-4xl">
-          <SocialLinks />
-        </div>
+        <SocialLinks />
       </div>
     </section>
 
