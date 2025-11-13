@@ -15,6 +15,11 @@
         setTimeout(() => {
           animationState = 'merged';
           clickable = true;
+          // Automatically restart after showing merged state for 2 seconds
+          setTimeout(() => {
+            clickable = false;
+            startAnimation();
+          }, 2000);
         }, 1200);
       }, 2500);
     }, 100);

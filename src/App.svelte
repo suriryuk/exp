@@ -33,6 +33,19 @@
     class="min-h-screen bg-background"
     in:fade={{ duration: 500, easing: quintOut }}
   >
+    <!-- Logo -->
+    <div
+      class="fixed top-4 left-4 z-50"
+      in:fade={{ duration: 500, delay: 3500, easing: quintOut }}
+    >
+      <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-background/80 backdrop-blur-sm border shadow-sm">
+        <div class="w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">D</span>
+        </div>
+        <span class="font-bold text-lg">Derives</span>
+      </div>
+    </div>
+
     <LanguageToggle />
 
     <!-- Hero Section -->

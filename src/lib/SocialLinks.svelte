@@ -46,8 +46,8 @@
     >
       <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <div class="flex flex-col items-center gap-4 text-center">
-          <div class="w-16 h-16 rounded-full {link.bgColor} flex items-center justify-center {link.color} group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-8 h-8" viewBox="0 0 640 512" fill="currentColor">
+          <div class="w-12 h-12 rounded-full {link.bgColor} flex items-center justify-center {link.color} group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6" viewBox="0 0 640 512" fill="currentColor">
               <path d={link.icon} />
             </svg>
           </div>
