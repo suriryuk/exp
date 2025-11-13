@@ -6,21 +6,23 @@
   export let className = '';
 
   const variants = {
-    default: 'bg-white/20 text-white hover:bg-white/30 border-white/30',
-    primary: 'bg-white text-purple-600 hover:bg-white/90',
-    ghost: 'hover:bg-white/10 text-white',
+    default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+    ghost: 'hover:bg-accent hover:text-accent-foreground',
   };
 
   const sizes = {
     default: 'h-10 px-4 py-2',
-    sm: 'h-9 px-3',
-    lg: 'h-11 px-8',
+    sm: 'h-9 px-3 text-xs',
+    lg: 'h-11 px-8 text-base',
+    xl: 'h-14 px-10 text-lg',
   };
 </script>
 
 <button
   class={cn(
-    'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:pointer-events-none disabled:opacity-50 backdrop-blur-md border-2',
+    'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
     variants[variant],
     sizes[size],
     className
