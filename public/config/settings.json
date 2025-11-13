@@ -7,14 +7,38 @@
   "translations": {
     "ko": {
       "slogan": "develop. derive. delight.",
-      "description": "우리는 혁신적인 솔루션을 개발합니다",
-      "contact": "연락처",
+      "description": "아이디어를 현실로 바꾸는 혁신적인 솔루션을 개발합니다",
+      "nav_home": "홈",
+      "nav_features": "특징",
+      "nav_contact": "연락처",
+      "cta_start": "시작하기",
+      "cta_learn": "더 알아보기",
+      "feature1_title": "빠른 개발 프로세스",
+      "feature1_desc": "최신 도구와 프레임워크를 활용하여 품질 저하 없이 더 빠르게 프로젝트를 제공합니다. 우리의 간소화된 워크플로우는 빠른 반복과 신속한 배포를 보장합니다.",
+      "feature2_title": "혁신을 최우선으로",
+      "feature2_desc": "최첨단 기술과 창의적인 솔루션으로 가능성의 경계를 넓힙니다. 우리의 혁신적인 접근 방식으로 경쟁에서 앞서 나가세요.",
+      "feature3_title": "원활한 팀 협업",
+      "feature3_desc": "협업 도구와 프로세스를 통해 효율적으로 함께 작업하세요. 최고의 결과를 위해 명확한 커뮤니케이션과 원활한 워크플로우를 보장합니다.",
+      "contact": "연락하기",
+      "contact_desc": "프로젝트를 시작할 준비가 되셨나요? 원하시는 플랫폼을 통해 저희와 연결하세요.",
       "clickToReplay": "클릭하여 다시 재생"
     },
     "en": {
       "slogan": "develop. derive. delight.",
-      "description": "We develop innovative solutions",
-      "contact": "Contact",
+      "description": "We develop innovative solutions that transform ideas into reality",
+      "nav_home": "Home",
+      "nav_features": "Features",
+      "nav_contact": "Contact",
+      "cta_start": "Get Started",
+      "cta_learn": "Learn More",
+      "feature1_title": "Rapid Development Process",
+      "feature1_desc": "We leverage cutting-edge tools and frameworks to deliver your projects faster without compromising quality. Our streamlined workflow ensures quick iterations and rapid deployment.",
+      "feature2_title": "Innovation at Our Core",
+      "feature2_desc": "We push the boundaries of what's possible with cutting-edge technologies and creative solutions. Stay ahead of the competition with our innovative approach.",
+      "feature3_title": "Seamless Team Collaboration",
+      "feature3_desc": "Work together efficiently with our collaborative tools and processes. We ensure clear communication and smooth workflows for the best results.",
+      "contact": "Get In Touch",
+      "contact_desc": "Ready to start your project? Connect with us through your preferred platform.",
       "clickToReplay": "Click to replay"
     }
   }

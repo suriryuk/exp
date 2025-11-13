@@ -16,6 +16,20 @@
   });
 
   $: translations = $config?.translations?.[$currentLang] || {};
+
+  function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 64; // Height of fixed header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
 </script>
 
 <svelte:head>
@@ -34,16 +48,29 @@
     in:fade={{ duration: 500, easing: quintOut }}
   >
     <!-- Fixed Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-sm">
+    <header class="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur-sm">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <!-- Logo -->
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 cursor-pointer" on:click={() => scrollToSection('home')} on:keypress={() => scrollToSection('home')} role="button" tabindex="0">
             <div class="w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
               <span class="text-white font-bold text-sm">D</span>
             </div>
             <span class="font-bold text-lg">Derives</span>
           </div>
+
+          <!-- Navigation Links -->
+          <nav class="hidden md:flex items-center gap-8">
+            <button on:click={() => scrollToSection('home')} class="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              {translations.nav_home || 'Home'}
+            </button>
+            <button on:click={() => scrollToSection('features')} class="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              {translations.nav_features || 'Features'}
+            </button>
+            <button on:click={() => scrollToSection('contact')} class="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              {translations.nav_contact || 'Contact'}
+            </button>
+          </nav>
 
           <!-- Language Toggle -->
           <LanguageToggle />
@@ -52,7 +79,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden border-b bg-background pt-16">
+    <section id="home" class="relative overflow-hidden border-b bg-background pt-16">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-60"></div>
 
       <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,16 +97,16 @@
 
           <!-- Description -->
           <p class="mt-8 max-w-2xl text-xl text-muted-foreground">
-            {translations.description || 'We develop innovative solutions'}
+            {translations.description || 'We develop innovative solutions that transform ideas into reality'}
           </p>
 
           <!-- CTA Buttons -->
           <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button size="lg" className="shadow-lg">
-              Get Started
+            <Button size="lg" className="shadow-lg" on:click={() => scrollToSection('contact')}>
+              {translations.cta_start || 'Get Started'}
             </Button>
-            <Button variant="outline" size="lg">
-              Learn More
+            <Button variant="outline" size="lg" on:click={() => scrollToSection('features')}>
+              {translations.cta_learn || 'Learn More'}
             </Button>
           </div>
         </div>
@@ -90,66 +117,113 @@
     </section>
 
     <!-- Features Section -->
-    <section class="border-b bg-background py-20">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16 text-center">
-          <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Why Choose Us
-          </h2>
-          <p class="mx-auto max-w-2xl text-lg text-muted-foreground">
-            We combine innovation, creativity, and technical excellence to deliver outstanding results.
-          </p>
+    <section id="features" class="bg-background">
+      <!-- Feature 1 -->
+      <div class="border-b">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div class="grid gap-12 md:grid-cols-2 items-center">
+            <div class="order-2 md:order-1">
+              <div class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 mb-4">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Fast Development
+              </div>
+              <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                {translations.feature1_title || 'Rapid Development Process'}
+              </h2>
+              <p class="text-lg text-muted-foreground mb-6">
+                {translations.feature1_desc || 'We leverage cutting-edge tools and frameworks to deliver your projects faster without compromising quality. Our streamlined workflow ensures quick iterations and rapid deployment.'}
+              </p>
+              <Button variant="outline" on:click={() => scrollToSection('contact')}>
+                Learn More
+              </Button>
+            </div>
+            <div class="order-1 md:order-2">
+              <div class="rounded-xl border bg-gradient-to-br from-blue-50 to-purple-50 p-12 shadow-lg">
+                <svg class="w-full h-48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="grid gap-8 md:grid-cols-3">
-          <div class="rounded-lg border bg-card p-8 shadow-sm transition-all hover:shadow-md">
-            <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+      <!-- Feature 2 -->
+      <div class="border-b">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div class="grid gap-12 md:grid-cols-2 items-center">
+            <div>
+              <div class="rounded-xl border bg-gradient-to-br from-purple-50 to-pink-50 p-12 shadow-lg">
+                <svg class="w-full h-48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
             </div>
-            <h3 class="mb-2 text-xl font-semibold">Fast Development</h3>
-            <p class="text-muted-foreground">
-              Rapid prototyping and development with modern tools and frameworks.
-            </p>
+            <div>
+              <div class="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-700 mb-4">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                Innovation
+              </div>
+              <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                {translations.feature2_title || 'Innovation at Our Core'}
+              </h2>
+              <p class="text-lg text-muted-foreground mb-6">
+                {translations.feature2_desc || 'We push the boundaries of what\'s possible with cutting-edge technologies and creative solutions. Stay ahead of the competition with our innovative approach.'}
+              </p>
+              <Button variant="outline" on:click={() => scrollToSection('contact')}>
+                Learn More
+              </Button>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <div class="rounded-lg border bg-card p-8 shadow-sm transition-all hover:shadow-md">
-            <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 text-purple-600">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
+      <!-- Feature 3 -->
+      <div class="border-b">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div class="grid gap-12 md:grid-cols-2 items-center">
+            <div class="order-2 md:order-1">
+              <div class="inline-flex items-center rounded-full bg-pink-100 px-3 py-1 text-sm font-medium text-pink-700 mb-4">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                Collaboration
+              </div>
+              <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                {translations.feature3_title || 'Seamless Team Collaboration'}
+              </h2>
+              <p class="text-lg text-muted-foreground mb-6">
+                {translations.feature3_desc || 'Work together efficiently with our collaborative tools and processes. We ensure clear communication and smooth workflows for the best results.'}
+              </p>
+              <Button variant="outline" on:click={() => scrollToSection('contact')}>
+                Learn More
+              </Button>
             </div>
-            <h3 class="mb-2 text-xl font-semibold">Innovation First</h3>
-            <p class="text-muted-foreground">
-              Cutting-edge solutions that push the boundaries of what's possible.
-            </p>
-          </div>
-
-          <div class="rounded-lg border bg-card p-8 shadow-sm transition-all hover:shadow-md">
-            <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-pink-100 text-pink-600">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
+            <div class="order-1 md:order-2">
+              <div class="rounded-xl border bg-gradient-to-br from-pink-50 to-red-50 p-12 shadow-lg">
+                <svg class="w-full h-48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
             </div>
-            <h3 class="mb-2 text-xl font-semibold">Team Collaboration</h3>
-            <p class="text-muted-foreground">
-              Seamless teamwork and communication for better outcomes.
-            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="bg-muted/30 py-16">
+    <section id="contact" class="bg-muted/30 py-20">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-10 text-center">
-          <h2 class="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+        <div class="mb-12 text-center">
+          <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
             {translations.contact || 'Get In Touch'}
           </h2>
-          <p class="mx-auto max-w-2xl text-base text-muted-foreground">
-            Connect with us through your preferred platform.
+          <p class="mx-auto max-w-2xl text-lg text-muted-foreground">
+            {translations.contact_desc || 'Ready to start your project? Connect with us through your preferred platform.'}
           </p>
         </div>
 
