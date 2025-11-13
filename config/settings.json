@@ -1,0 +1,29 @@
+{
+  "social": {
+    "discord": "https://discord.gg/your-invite",
+    "twitter": "https://twitter.com/yourteam",
+    "email": "contact@yourteam.com"
+  },
+  "translations": {
+    "ko": {
+      "slogan": "develop. derive. delight.",
+      "animationText": {
+        "develop": "develop",
+        "derive": "derive",
+        "derives": "derives"
+      },
+      "description": "우리는 혁신적인 솔루션을 개발합니다",
+      "contact": "연락처"
+    },
+    "en": {
+      "slogan": "develop. derive. delight.",
+      "animationText": {
+        "develop": "develop",
+        "derive": "derive",
+        "derives": "derives"
+      },
+      "description": "We develop innovative solutions",
+      "contact": "Contact"
+    }
+  }
+}

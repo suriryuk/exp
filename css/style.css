@@ -1,0 +1,359 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Language Toggle */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.lang-btn.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #667eea;
+}
+
+/* Main Container */
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Hero Section */
+.hero {
+    margin-bottom: 80px;
+}
+
+/* Animation Container */
+.animation-container {
+    margin-bottom: 60px;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.word {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.plus, .equals {
+    font-size: 2.5rem;
+    font-weight: bold;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+/* Animation States */
+.word.develop {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.word.derive {
+    animation: slideInRight 0.8s ease-out 0.3s both;
+}
+
+.plus {
+    animation-delay: 0.5s;
+}
+
+.equals {
+    animation-delay: 1.5s;
+}
+
+.word.derives {
+    opacity: 0;
+    animation: scaleIn 0.8s ease-out 2s both;
+    color: #ffd700;
+}
+
+/* Animation for merging effect */
+.word-animation.merging .develop,
+.word-animation.merging .derive {
+    animation: mergeWords 1s ease-in-out forwards;
+}
+
+.word-animation.merging .plus,
+.word-animation.merging .equals {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+.word-animation.merged .develop,
+.word-animation.merged .derive,
+.word-animation.merged .plus,
+.word-animation.merged .equals {
+    display: none;
+}
+
+.word-animation.merged .derives {
+    display: inline-block;
+    animation: bounceIn 1s ease-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes mergeWords {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(0) scale(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Slogan */
+.slogan {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out 2.5s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Description */
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease-out 3s both;
+}
+
+/* Contact Section */
+.contact {
+    animation: fadeInUp 1s ease-out 3.5s both;
+}
+
+.contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon.discord:hover {
+    background: #5865F2;
+    border-color: #5865F2;
+}
+
+.social-icon.twitter:hover {
+    background: #1DA1F2;
+    border-color: #1DA1F2;
+}
+
+.social-icon.email:hover {
+    background: #EA4335;
+    border-color: #EA4335;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .word {
+        font-size: 2rem;
+    }
+
+    .plus, .equals {
+        font-size: 1.8rem;
+    }
+
+    .slogan {
+        font-size: 1.8rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .language-toggle {
+        top: 10px;
+        right: 10px;
+    }
+
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .word-animation {
+        gap: 10px;
+    }
+
+    .word {
+        font-size: 1.5rem;
+    }
+
+    .plus, .equals {
+        font-size: 1.3rem;
+    }
+
+    .slogan {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+}
